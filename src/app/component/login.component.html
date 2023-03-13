@@ -1,8 +1,27 @@
-<button [routerLink]=[]>somwthing</button>
+
 <h1>Welcome to the login page</h1>
 
-<form>
-    <input type="text">
-    <input type="text">
-    <button type="submit" [routerLink]="">Login</button>
+<form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+    <table> 
+        <tr>
+            <td>
+                <input type="text" placeholder="username" formControlName="username">
+            </td>   
+        </tr>
+        <tr>
+            <td>
+                <input type="text" placeholder="password" formControlName="password">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">Login</button>
+            </td>
+        </tr>
+    </table>
 </form>
+<br>
+<div>
+    <p>Don't have an account? <button [routerLink]="['/register']">Signup Now!</button>
+    </p>
+    </div>

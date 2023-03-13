@@ -1,0 +1,10 @@
+<p>userhome works!</p>
+<p>wooo you managed to login i guess</p>
+<button [routerLink]="['/findarecipe']">search recipe</button>
+<h1>{{userLogged}}</h1>
+
+<!-- logout button that will reset the localStorage user -->
+<!-- links to other pages like search recipe page/ favourite page/ profile page/ forum page-->
+
+<button type="button" (click)="logOut()">Logout</button>
+<br>

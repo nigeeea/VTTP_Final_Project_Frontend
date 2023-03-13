@@ -1,0 +1,62 @@
+<p>searchrecipe works!</p>
+<button [routerLink]="['/home']">home</button>
+<h1>{{userLogged}}</h1>
+
+<form [formGroup]="searchForm" (ngSubmit)="submitForm()">
+    <input type="text" formControlName="cuisine">
+    <input type="text" formControlName="calories">
+    <button type="submit">search</button>
+</form>
+
+<br>
+
+    <table>
+        <tr>
+            <td formControlName="id">
+                {{recipeReceived.id}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{recipeReceived.recipeName}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{recipeReceived.url}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{recipeReceived.image}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img [src]="recipeReceived.image" alt="">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{recipeReceived.calories}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <!-- create (click)=saveRecipe() method in component ts -->
+                <button (click)="saveRecipe(recipeReceived.id, 
+                                            recipeReceived.recipeName,
+                                            recipeReceived.url,
+                                            recipeReceived.image,
+                                            recipeReceived.calories)">Save Recipe</button> 
+            </td>
+        </tr>
+    </table>
+
+<br>
+<br>
+
+
+<button type="button" (click)="logOut()">Logout</button>
+<br>
+
