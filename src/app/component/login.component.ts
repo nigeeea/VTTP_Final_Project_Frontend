@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit{
 
   ngOnInit(): void {
 
-    if(localStorage.getItem('user') !== null){
+    if(localStorage.getItem('email') !== null){
       this.router.navigate(['/home']);
     }
 
@@ -27,18 +27,18 @@ export class LoginComponent implements OnInit{
 
   createForm(){
     return this.fb.group({
-      username: this.fb.control('', [Validators.required]),
+      email: this.fb.control('', [Validators.required]),
       password: this.fb.control('', [Validators.required])
     })
   }
 
   submitForm(){
-    const username = this.loginForm.get('username')?.value
+    const email = this.loginForm.get('email')?.value
     const password = this.loginForm.get('password')?.value
-    console.info('username is here>>>', username)
+    console.info('username is here>>>', email)
     console.info('password is here>>>', password)
 
-    this.recipeSvc.autheticateUser(username, password)
+    this.recipeSvc.autheticateUser(email, password)
     .then(results =>{
       console.info(results);
       //this.authResult=results;

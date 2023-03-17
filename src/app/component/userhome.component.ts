@@ -10,19 +10,19 @@ import { RecipeService } from '../recipe.service';
 })
 export class UserhomeComponent implements OnInit{
 
-  userLogged!:string | null
+  emailLogged!:string | null
 
   constructor(private recipeSvc: RecipeService, private router:Router) {}
 
   ngOnInit(): void {
 
-      console.info('user stored-->', localStorage.getItem('user'));
+      //if not logged in deny access//
+      console.info('email stored-->', localStorage.getItem('email'));
+      this.emailLogged = localStorage.getItem('email');
+      if(this.emailLogged === null){
+        this.router.navigate(['/'])}
+      //if not logged in deny access//
 
-      this.userLogged = localStorage.getItem('user');
-      
-      if(this.userLogged === null){
-        this.router.navigate(['/'])
-      }
       // this.userLogged=this.recipeSvc.theUser;
       // localStorage.setItem('user', this.userLogged)
 
@@ -32,7 +32,7 @@ export class UserhomeComponent implements OnInit{
     }
 
     logOut(){
-      localStorage.removeItem('user')
+      this.recipeSvc.logOut()
       this.router.navigate(['/'])
   }
 }

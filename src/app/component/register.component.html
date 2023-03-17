@@ -1,0 +1,71 @@
+<h1>Registration Page</h1>
+
+<form [formGroup]="registerForm" (ngSubmit)="submitForm()">
+    <table>
+
+        <tr>
+            <td>
+                <input type="email" placeholder="enter email" formControlName="email"> 
+            </td>
+        </tr>
+        <tr>
+            <td  *ngIf="username && username.invalid && username.touched"> 
+                    this input is invalid
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <input type="password" placeholder="enter password" formControlName="password">
+            </td>
+        </tr>
+        <tr>
+            <td *ngIf="password && password.invalid && password.touched"> 
+                password input is invalid - e.g. should have 8 characters and a 1 special character     
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <input type="password" placeholder="re-enter password" formControlName="passwordAgain">               
+            </td>
+        </tr>
+        <tr>
+            <td *ngIf="passwordAgain && passwordAgain.invalid && passwordAgain.touched"> 
+                password do not matchhhhhh
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" placeholder="Full Name" formControlName="full_name">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" placeholder="Contact Number" formControlName="contact_number">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" placeholder="Address" formControlName="address">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" placeholder="Postal Code" formControlName="postal_code">
+            </td>
+        </tr>
+        
+    </table>
+    <button type="submit" [disabled]="registerForm.invalid">Sign up</button>
+</form>
+
+<div>
+    <p>Already have an account? 
+        <button mat-raised-button color="primary" [routerLink]="['/']" >Login here!</button>
+    </p>
+
+    <button mat-fab extended [routerLink]="['/']">
+        Login Here!
+      </button>
+</div>

@@ -13,6 +13,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon';
 import { SearchrecipeComponent } from './component/searchrecipe.component';
+import { RegisterComponent } from './component/register.component';
+import { FavouritesComponent } from './component/favourites.component';
+import { UserprofileComponent } from './component/userprofile.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { SearchrecipeComponent } from './component/searchrecipe.component';
     LoginComponent,
     SignupComponent,
     UserhomeComponent,
-    SearchrecipeComponent
+    SearchrecipeComponent,
+    RegisterComponent,
+    FavouritesComponent,
+    UserprofileComponent
   ],
   imports: [
     BrowserModule,

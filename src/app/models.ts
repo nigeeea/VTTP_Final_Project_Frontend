@@ -7,9 +7,14 @@ export interface RegisterUserResult{
 }
 
 export interface Recipe{
-    id: number;
-    recipeName: string;
+    recipe_id: number;
+    recipe_name: string;
     image: string;
     url: string;
     calories: number;
+    cuisine: string;
+}
+
+export interface SaveRecipeResult{
+    saved: boolean;
 }

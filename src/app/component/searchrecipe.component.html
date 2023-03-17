@@ -1,5 +1,8 @@
-<p>searchrecipe works!</p>
 <button [routerLink]="['/home']">home</button>
+<button [routerLink]="['/findarecipe']">search recipe</button>
+<button [routerLink]="['/savedrecipes']">favourites</button>
+<button type="button" (click)="logOut()">Logout</button>
+<p>searchrecipe works!</p>
 <h1>{{userLogged}}</h1>
 
 <form [formGroup]="searchForm" (ngSubmit)="submitForm()">
@@ -12,18 +15,18 @@
 
     <table>
         <tr>
-            <td formControlName="id">
-                {{recipeReceived.id}}
+            <td>
+                {{recipeReceived.recipe_id}}
             </td>
         </tr>
         <tr>
             <td>
-                {{recipeReceived.recipeName}}
+                {{recipeReceived.recipe_name}}
             </td>
         </tr>
         <tr>
             <td>
-                {{recipeReceived.url}}
+                <a href="{{recipeReceived.url}}" target="_blank">{{recipeReceived.url}}</a>
             </td>
         </tr>
         <tr>
@@ -43,12 +46,22 @@
         </tr>
         <tr>
             <td>
+                {{recipeReceived.cuisine}}
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <!-- create (click)=saveRecipe() method in component ts -->
-                <button (click)="saveRecipe(recipeReceived.id, 
-                                            recipeReceived.recipeName,
+                <button (click)="saveRecipe(recipeReceived.recipe_id, 
+                                            recipeReceived.recipe_name,
                                             recipeReceived.url,
                                             recipeReceived.image,
                                             recipeReceived.calories)">Save Recipe</button> 
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{savedStatus || null}}
             </td>
         </tr>
     </table>

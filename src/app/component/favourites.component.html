@@ -1,0 +1,46 @@
+<button [routerLink]="['/home']">home</button>
+<button [routerLink]="['/findarecipe']">search recipe</button>
+<button [routerLink]="['/savedrecipes']">favourites</button>
+<button type="button" (click)="logOut()">Logout</button>
+<p>favourites works!</p>
+<!-- <button (click)="gettingFavourites()">All</button> -->
+
+<table>
+    <tbody *ngFor="let r of favouriteRecipes">
+        <tr>
+            <td>Recipe:</td>
+            <td>{{r.recipe_name}}</td>
+        </tr>
+        <tr>
+            <td>Recipe ID:</td>
+            <td>{{r.recipe_id}}</td>
+        </tr>
+        <tr>
+            <td>
+                <img [src]="r.image" alt="">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Recipe:
+            </td>
+            <td>
+                <a href="{{r.url}}" target="_blank">Full Recipe</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Cusine:</td>
+            <td>{{r.cuisine}}</td>
+        </tr>
+        <tr>
+            <td>Calories:</td>
+            <td>{{r.calories}}</td>
+        </tr>
+        <tr>
+            <!-- can create delete function later -->
+            <button>Delete</button>
+        </tr>
+        <br>
+        <br>
+    </tbody>
+</table>
