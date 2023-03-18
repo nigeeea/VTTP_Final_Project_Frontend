@@ -40,12 +40,6 @@ export class SearchrecipeComponent implements OnInit {
     })
   }
 
-
-  logOut(){
-    localStorage.removeItem('user')
-    this.router.navigate(['/'])
-  }
-
   submitForm(){
     const cuisine = this.searchForm.get('cuisine')?.value
     this.cuisineInput=cuisine
@@ -105,6 +99,11 @@ export class SearchrecipeComponent implements OnInit {
       //make an UI error to show user that the recipe is not saved
       this.savedStatus = "error: recipe is not saved"
     })
+  }
+
+  logOut(){
+    this.recipeSvc.logOut()
+    this.router.navigate(['/'])
   }
 
 }

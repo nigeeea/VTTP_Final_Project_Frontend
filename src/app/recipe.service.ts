@@ -1,7 +1,7 @@
 import { Injectable} from '@angular/core'
 import {HttpClient, HttpParams} from '@angular/common/http'
 import{Subject, firstValueFrom} from 'rxjs'
-import { AuthenticationResult, Recipe, RegisterUserResult, SaveRecipeResult } from './models';
+import { AuthenticationResult, Recipe, RegisterUserResult, SaveRecipeResult, UserProfile } from './models';
 import { Router } from '@angular/router';
 
 const BACKEND = 'http://localhost:8085';
@@ -125,6 +125,19 @@ export class RecipeService{
         )
         .then(results=>{
             this.favourites=results;
+            console.info(results);
+            return results;
+        })
+    }
+
+    getUserProfile(email: string): Promise<UserProfile>{
+
+        const params = new HttpParams().set("email", email);
+
+        return firstValueFrom(
+            this.http.get<UserProfile>(`${BACKEND}/api/getUserProfile`, {params} )
+        )
+        .then(results=>{
             console.info(results);
             return results;
         })

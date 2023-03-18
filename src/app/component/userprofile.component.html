@@ -1,1 +1,45 @@
+<button [routerLink]="['/home']">home</button>
+<button [routerLink]="['/findarecipe']">search recipe</button>
+<button [routerLink]="['/savedrecipes']">favourites</button>
+<button [routerLink]="['/profile']">profile</button>
+<button [routerLink]="['/store']">store</button>
+<button type="button" (click)="logOut()">Logout</button>
 <p>userprofile works!</p>
+
+<h1>Profile Details</h1>
+
+<button (click)="edit()">Edit</button>
+<form [formGroup]="editProfileForm">
+    <table>
+        <tbody>
+            <tr>
+                <td>Email:</td>
+                <!--  https://stackoverflow.com/questions/52365809/angular-text-input-wont-set-to-a-default-value -->
+                <td><input type="email" [(ngModel)]="userProfile.email"  formControlName="email"></td>
+            </tr>
+            <tr>
+                <td>Full Name:</td>
+                <td><input type="text" [(ngModel)]="userProfile.full_name"  formControlName="full_name"></td>
+            </tr>
+            <tr>
+                <td>Contact No.:</td>
+                <td><input type="text" [(ngModel)]="userProfile.contact_number"  formControlName="contact_number"></td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td><input type="text" [(ngModel)]="userProfile.address"  formControlName="address"></td>
+            </tr>
+            <tr>
+                <td>Postal Code:</td>
+                <td><input type="text" [(ngModel)]="userProfile.postal_code"  formControlName="postal_code"></td>
+            </tr>
+            <tr>
+                <td><button type="submit">submit updated details</button></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+
+
+
+<!-- create edit profile functionality -->

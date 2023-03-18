@@ -18,3 +18,15 @@ export interface Recipe{
 export interface SaveRecipeResult{
     saved: boolean;
 }
+
+export interface UserProfile{
+    email: string;
+    full_name: string;
+    contact_number: number;
+    address: string;
+    postal_code: number;
+}
+
+export interface UserProfileUpdateResult{
+    profile_updated: boolean;
+}

@@ -6,7 +6,7 @@ import {HttpClientModule} from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login.component';
-import { SignupComponent } from './component/signup.component';
+//import { SignupComponent } from './component/signup.component';
 import { UserhomeComponent } from './component/userhome.component';
 import { RecipeService } from './recipe.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,17 +16,19 @@ import { SearchrecipeComponent } from './component/searchrecipe.component';
 import { RegisterComponent } from './component/register.component';
 import { FavouritesComponent } from './component/favourites.component';
 import { UserprofileComponent } from './component/userprofile.component';
+import { StoreComponent } from './component/store.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SignupComponent,
+    //SignupComponent,
     UserhomeComponent,
     SearchrecipeComponent,
     RegisterComponent,
     FavouritesComponent,
-    UserprofileComponent
+    UserprofileComponent,
+    StoreComponent
   ],
   imports: [
     BrowserModule,
