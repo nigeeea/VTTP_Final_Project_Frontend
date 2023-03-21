@@ -1,7 +1,7 @@
 import { Injectable} from '@angular/core'
 import {HttpClient, HttpParams} from '@angular/common/http'
 import{Subject, firstValueFrom} from 'rxjs'
-import { AuthenticationResult, Recipe, RegisterUserResult, SaveRecipeResult, UserProfile } from './models';
+import { AuthenticationResult, DeleteRecipeResult, Recipe, RegisterUserResult, SaveRecipeResult, UserProfile, UserProfileUpdateResult } from './models';
 import { Router } from '@angular/router';
 
 const BACKEND = 'http://localhost:8085';
@@ -141,6 +141,46 @@ export class RecipeService{
             console.info(results);
             return results;
         })
+    }
+
+    //need to include old email as well
+    updateUserProfile(email: string,
+                        full_name: string,
+                        contact_number: number,
+                        address: string,
+                        postal_code: number,
+                        oldEmail: string):Promise<UserProfileUpdateResult>{
+
+
+        const params = new HttpParams().set("email", email)
+                                        .set("full_name", full_name)
+                                        .set("contact_number", contact_number)
+                                        .set("address", address)
+                                        .set("postal_code", postal_code)
+                                        .set("oldEmail", oldEmail);
+        return firstValueFrom(
+            this.http.put<UserProfileUpdateResult>(`${BACKEND}/api/editUserProfile`, params )
+        )
+        .then(results=>{
+            console.info(results);
+            window.location.reload();
+            return results;
+        })
+
+        
+    }
+
+    deleteRecipe(email: string, recipe_id: number): Promise<DeleteRecipeResult>{
+        const params = new HttpParams().set("email", email).set("recipe_id", recipe_id);
+
+        return firstValueFrom(
+            this.http.delete<DeleteRecipeResult>(`${BACKEND}/api/deleteRecipe`, {params} )
+        )
+        .then(results=>{
+            console.info(results);
+            return results;
+        }
+        )
     }
 
     //LOGOUT METHOD - SHOULD BE IN EVERY COMPONENT TS AND BUTTON IN COMPONENT HTML NAVBAR

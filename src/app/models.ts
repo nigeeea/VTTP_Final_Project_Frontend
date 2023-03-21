@@ -30,3 +30,7 @@ export interface UserProfile{
 export interface UserProfileUpdateResult{
     profile_updated: boolean;
 }
+
+export interface DeleteRecipeResult{
+    recipe_deleted: boolean;
+}

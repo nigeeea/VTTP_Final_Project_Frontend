@@ -9,32 +9,37 @@
 <h1>Profile Details</h1>
 
 <button (click)="edit()">Edit</button>
-<form [formGroup]="editProfileForm">
+<form [formGroup]="editProfileForm" (ngSubmit)="submitForm()">
     <table>
         <tbody>
+            <!-- for some reason i need to have this hidden field in my code that includes a 
+            formControlName, otherwise the value of the first form field wont show up...??? -->
+            <tr hidden>
+                <td><input type="text" formControlName="blank" value="Nothing Here" [disabled]="true"></td>
+            </tr>
             <tr>
                 <td>Email:</td>
-                <!--  https://stackoverflow.com/questions/52365809/angular-text-input-wont-set-to-a-default-value -->
-                <td><input type="email" [(ngModel)]="userProfile.email"  formControlName="email"></td>
+                <td><input type="text" formControlName="email"></td>
             </tr>
             <tr>
                 <td>Full Name:</td>
-                <td><input type="text" [(ngModel)]="userProfile.full_name"  formControlName="full_name"></td>
+                <td><input type="text" formControlName="full_name"></td>
             </tr>
             <tr>
                 <td>Contact No.:</td>
-                <td><input type="text" [(ngModel)]="userProfile.contact_number"  formControlName="contact_number"></td>
+                <td><input type="text" formControlName="contact_number"></td>
             </tr>
             <tr>
                 <td>Address:</td>
-                <td><input type="text" [(ngModel)]="userProfile.address"  formControlName="address"></td>
+                <td><input type="text" formControlName="address"></td>
             </tr>
             <tr>
                 <td>Postal Code:</td>
-                <td><input type="text" [(ngModel)]="userProfile.postal_code"  formControlName="postal_code"></td>
+                <td><input type="text" formControlName="postal_code"></td>
             </tr>
             <tr>
-                <td><button type="submit">submit updated details</button></td>
+                <td></td>
+                <td><button type="submit" [disabled]="toEdit">submit updated details</button></td>
             </tr>
         </tbody>
     </table>

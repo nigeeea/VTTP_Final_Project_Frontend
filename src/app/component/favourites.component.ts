@@ -50,6 +50,30 @@ export class FavouritesComponent implements OnInit{
       
       
   }
+
+  deleteRecipe(i: number){
+    let email: string;
+
+      if(this.userLogged === null) 
+      {email = "noemail"}
+      else{email = this.userLogged}
+    
+    const recipe_id = this.favouriteRecipes[i].recipe_id
+    const recipe_name = this.favouriteRecipes[i].recipe_name
+
+    console.info("email address-->", email);
+    console.info("recipe ID-->", recipe_id);
+    console.info("recipe name-->", recipe_name);
+
+    //create function in service to delete from recipes
+    this.recipeSvc.deleteRecipe(email, recipe_id)
+    .then(
+      results=>{
+        console.info("in component", results)
+        this.favouriteRecipes.splice(i, 1);
+      }
+    )
+  }
       // gettingFavourites(){
       //   let email: string;
 
