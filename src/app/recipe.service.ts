@@ -1,7 +1,7 @@
 import { Injectable} from '@angular/core'
 import {HttpClient, HttpParams} from '@angular/common/http'
-import{Subject, firstValueFrom} from 'rxjs'
-import { AuthenticationResult, DeleteRecipeResult, Recipe, RegisterUserResult, SaveRecipeResult, UserProfile, UserProfileUpdateResult } from './models';
+import{ firstValueFrom} from 'rxjs'
+import { AuthenticationResult, DeleteRecipeResult, Recipe, RecipeInstructions, RegisterUserResult, SaveRecipeResult, UserProfile, UserProfileUpdateResult } from './models';
 import { Router } from '@angular/router';
 
 const BACKEND = 'http://localhost:8085';
@@ -23,6 +23,7 @@ export class RecipeService{
         //storing username in local storage                                
         this.theUser=email;
         localStorage.setItem('email', email)
+        
 
         return firstValueFrom(
             this.http.post<AuthenticationResult>(`${BACKEND}/api/userAuth`, params )
@@ -78,7 +79,7 @@ export class RecipeService{
         const params = new HttpParams().set("cuisine", cuisine).set("calories", calories);
 
         return firstValueFrom(
-            this.http.get<Recipe>(`${BACKEND}/api/testapi`, {params} )
+            this.http.get<Recipe>(`${BACKEND}/api/newapitesting`, {params} )
         )
         .then(results => {
             console.info("in service--recipe???>>>", results);
@@ -87,34 +88,36 @@ export class RecipeService{
         )
     }
 
+        //METHOD TO SAVE SEARCHED RECIPE IMPROVED
+        saveRecipeTwo(email: string,
+            recipe_id: string,
+            recipe_name: string,
+            image: string,
+            url: string,
+            calories: string,
+            cuisine: string,
+            recipeInstructions: RecipeInstructions): Promise<SaveRecipeResult>{
 
-    //METHOD TO SAVE SEARCHED RECIPE
-    saveRecipe(email: string,
-                recipe_id: string,
-                recipe_name: string,
-                image: string,
-                url: string,
-                calories: string,
-                cuisine: string): Promise<SaveRecipeResult>{
+    const params = new HttpParams().set("email", email)
+                                    .set("recipe_id",recipe_id)
+                                    .set("recipe_name",recipe_name)
+                                    .set("image",image)
+                                    .set("url",url)
+                                    .set("calories",calories)
+                                    .set("cuisine", cuisine);
+    const body = recipeInstructions
+        
+   return firstValueFrom(
+        this.http.post<SaveRecipeResult>(`${BACKEND}/api/saveRecipeTwo`, body, {params})
+    )
+    .then(results=>{
+        console.info("in service--recipe Saved??>>", results);
 
-        const params = new HttpParams().set("email", email)
-                                        .set("recipe_id",recipe_id)
-                                        .set("recipe_name",recipe_name)
-                                        .set("image",image)
-                                        .set("url",url)
-                                        .set("calories",calories)
-                                        .set("cuisine", cuisine);
-            
-       return firstValueFrom(
-            this.http.post<SaveRecipeResult>(`${BACKEND}/api/saveRecipe`, params )
-        )
-        .then(results=>{
-            console.info("in service--recipe Saved??>>", results);
+        return results;
+    }) 
+}
 
-            return results;
-        }) 
 
-    }
 
     getFavourites(email: string): Promise<Recipe[]>{
 
@@ -183,10 +186,43 @@ export class RecipeService{
         )
     }
 
+    //METHOD TO GET SINGLE RECIPE FOR INDIV FAVS PAGE
+    getSingleRecipeInstructions(): Promise<RecipeInstructions>{
+
+        return firstValueFrom(
+            this.http.get<RecipeInstructions>(`${BACKEND}/api/`+localStorage.getItem('recipe_id'))
+        )
+        .then(results=>{
+            console.info(results);
+            return results;
+        })
+    }
+
     //LOGOUT METHOD - SHOULD BE IN EVERY COMPONENT TS AND BUTTON IN COMPONENT HTML NAVBAR
     logOut(){
         localStorage.removeItem('email')
         this.router.navigate(['/'])
+    }
+
+    favRecipeId!: number;
+    favRecipeName!: string;
+    favRecipeCalories!: number;
+    favRecipeCuisine!: string;
+    favRecipeImage!: string;
+    //METHOD TO GO TO SINGLE FAV FROM FAVOURITES
+    GoToSingleFav(recipe_id: number, recipe_name: string, calories: number, cuisine: string, image: string){
+        this.favRecipeId=recipe_id;
+        this.favRecipeName=recipe_name;
+        this.favRecipeCalories=calories;
+        this.favRecipeCuisine=cuisine;
+        this.favRecipeImage=image;
+        localStorage.setItem('recipe_id', String(recipe_id));
+        localStorage.setItem('recipe_name',recipe_name)
+        localStorage.setItem('calories',String(calories))
+        localStorage.setItem('cuisine',cuisine)
+        localStorage.setItem('image',image)
+
+        this.router.navigate(['/fav',recipe_id])
     }
 
 }

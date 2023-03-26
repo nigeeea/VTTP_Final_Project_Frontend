@@ -4,26 +4,63 @@
 <button [routerLink]="['/profile']">profile</button>
 <button [routerLink]="['/store']">store</button>
 <button type="button" (click)="logOut()">Logout</button>
-<p>searchrecipe works!</p>
-<h1>{{userLogged}}</h1>
+<br><br>
 
 <form [formGroup]="searchForm" (ngSubmit)="submitForm()">
-    <input type="text" formControlName="cuisine">
-    <input type="text" formControlName="calories">
+    <!-- <input type="text" formControlName="cuisine"> -->
+    <select type="text" formControlName="cuisine">
+        <option value="" disabled selected>Select your Cuisine!</option>
+                <option value="African">African</option>
+                <option value="American">American</option>
+                <option value="British">British</option>
+                <option value="Cajun">Cajun</option>
+                <option value="Carribean">Carribean</option>
+                <option value="Eastern European">Eastern European</option>
+                <option value="European">European</option>
+                <option value="French">French</option>
+                <option value="German">German</option>
+                <option value="Greek">Greek</option>
+                <option value="Indian">Indian</option>
+                <option value="Irish">Irish</option>
+                <option value="Italian">Italian</option>
+                <option value="Jewish">Jewish</option>
+                <option value="Korean">Korean</option>
+                <option value="Latin American">Latin American</option>
+                <option value="Mediterranean">Mediterranean</option>
+                <option value="Mexican">Mexican</option>
+                <option value="Middle Eastern">Middle Eastern</option>
+                <option value="Nordic">Nordic</option>
+                <option value="Southern">Southern</option>
+                <option value="Spanish">Spanish</option>
+                <option value="Thai">Thai</option>
+                <option value="Vietnamese">Vietnamese</option>
+      </select>
+    <input type="number" min="200" max="3000" formControlName="calories" placeholder="calories">
     <button type="submit">search</button>
 </form>
 
 <br>
 
+<h2>{{recipeReceived.recipe_name}}</h2>
     <table>
         <tr>
             <td>
-                {{recipeReceived.recipe_id}}
+                <img [src]="recipeReceived.image" alt="">
             </td>
         </tr>
         <tr>
             <td>
-                {{recipeReceived.recipe_name}}
+                Calories: {{recipeReceived.calories}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Cuisine: {{recipeReceived.cuisine}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Recipe ID: {{recipeReceived.recipe_id}}
             </td>
         </tr>
         <tr>
@@ -33,32 +70,19 @@
         </tr>
         <tr>
             <td>
-                {{recipeReceived.image}}
+                Ingredients: {{recipeReceived.ingredients}}
+            </td>
+        </tr>
+        <tr>
+            <td> 
+                <ul>
+                    <li *ngFor="let s of recipeReceived.steps; let i = index"> {{i+1}}: {{s}}</li>
+                </ul>
             </td>
         </tr>
         <tr>
             <td>
-                <img [src]="recipeReceived.image" alt="">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                {{recipeReceived.calories}}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                {{recipeReceived.cuisine}}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <!-- create (click)=saveRecipe() method in component ts -->
-                <button (click)="saveRecipe(recipeReceived.recipe_id, 
-                                            recipeReceived.recipe_name,
-                                            recipeReceived.url,
-                                            recipeReceived.image,
-                                            recipeReceived.calories)">Save Recipe</button> 
+                <button (click)="saveRecipeTwo()" style="background-color: lightgreen; ">Save Recipe</button>
             </td>
         </tr>
         <tr>
@@ -68,10 +92,4 @@
         </tr>
     </table>
 
-<br>
-<br>
-
-
-<button type="button" (click)="logOut()">Logout</button>
-<br>
 

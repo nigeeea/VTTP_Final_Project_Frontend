@@ -17,6 +17,7 @@ import { RegisterComponent } from './component/register.component';
 import { FavouritesComponent } from './component/favourites.component';
 import { UserprofileComponent } from './component/userprofile.component';
 import { StoreComponent } from './component/store.component';
+import { SinglefavComponent } from './component/singlefav.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { StoreComponent } from './component/store.component';
     RegisterComponent,
     FavouritesComponent,
     UserprofileComponent,
-    StoreComponent
+    StoreComponent,
+    SinglefavComponent
   ],
   imports: [
     BrowserModule,

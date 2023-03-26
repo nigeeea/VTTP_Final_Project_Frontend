@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms'
-import { Subscription } from 'rxjs';
 import { RecipeService } from '../recipe.service';
-import { Recipe } from '../models';
+import { Recipe, RecipeInstructions } from '../models';
 
 @Component({
   selector: 'app-searchrecipe',
@@ -50,9 +49,12 @@ export class SearchrecipeComponent implements OnInit {
 
     this.recipeSvc.searchRecipe(cuisine, calories)
     .then(results =>{
-      console.info('in component-->recipe',results);
     this.recipeReceived=results;
-    this.recipeReceived.cuisine=cuisine;})
+    this.recipeReceived.cuisine=cuisine;
+    // this.recipeInstructions.ingredients=results.ingredients;
+    // this.recipeInstructions.steps=results.steps
+    console.info('in component-->recipe',results);
+  })
     .catch(error => {
       console.info("some error bruh>>>", error)
     }
@@ -60,15 +62,8 @@ export class SearchrecipeComponent implements OnInit {
     )
   }
 
-  // METHOD TO SAVE RECIPE
-  saveRecipe(
-    id: number,
-    recipeName: string,
-    image: string,
-    url: string,
-    calories: number
-  ){
-
+  //UPGRADED SAVE RECIPE METHOD
+  saveRecipeTwo(){
     let email: string;
     if(this.userLogged === null){
       email = "noemail"
@@ -81,21 +76,37 @@ export class SearchrecipeComponent implements OnInit {
     const urlValue = this.recipeReceived.url
     const caloriesValue = String(this.recipeReceived.calories)
     const cuisine = this.cuisineInput
+    const ingredients = this.recipeReceived.ingredients
+    const steps = this.recipeReceived.steps
+
+    let recipeIngredients: string[] = this.recipeReceived.ingredients;
+    let recipeSteps: string[] = this.recipeReceived.steps;
+    const recipeInstructions: RecipeInstructions = {steps: recipeSteps, ingredients: recipeIngredients};
+    console.info("the steps in teh object>>>", recipeInstructions.steps);
+    console.info('the ingredients in the object>>>', recipeInstructions.ingredients);
+    console.info('the RecipeInstructions Object>>>', recipeInstructions);
+    
+
     console.info('this is the id value>>>',recipe_id);
     console.info('this is the recipeName value>>>',recipe_name);
     console.info('this is the image value>>>',imageValue);
     console.info('this is the url value>>>',urlValue);
     console.info('this is the calories value>>>',caloriesValue);
-    //create a method in service to post the recipe to mysql db -- remember to include the email stored in localStorage
-    this.recipeSvc.saveRecipe(email,recipe_id,recipe_name,imageValue,urlValue,caloriesValue,cuisine)
+    console.info('this is the cuisine>>>',cuisine);
+    console.info('these are the ingredients>>>',recipeInstructions.ingredients);
+    console.info('these are the steps>>>',recipeInstructions.steps);
+
+    //now create a method in service to send the recipeInstructs object as a body and the other values as params
+    //make sure that in spring boot backend there is a model object to receive/store the recipeInstructs object 
+    this.recipeSvc.saveRecipeTwo(email,recipe_id,recipe_name,imageValue,urlValue,caloriesValue,cuisine, recipeInstructions)
     .then(results =>{
-      console.info("in the component-->",results);
+      console.info("in the component saveTwo-->",results);
       //make a ui response to tell the user that recipe has been saved
       if(results.saved){this.savedStatus="your recipe has been saved"}
       else{{this.savedStatus="error: your recipe has not been saved, try again later"}}
     })
     .catch(error => {
-      console.info("some error bruh>>>", error);
+      console.info("some error bruh saveTwp>>>", error);
       //make an UI error to show user that the recipe is not saved
       this.savedStatus = "error: recipe is not saved"
     })

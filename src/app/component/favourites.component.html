@@ -4,30 +4,19 @@
 <button [routerLink]="['/profile']">profile</button>
 <button [routerLink]="['/store']">store</button>
 <button type="button" (click)="logOut()">Logout</button>
-<p>favourites works!</p>
-<!-- <button (click)="gettingFavourites()">All</button> -->
 
+<br><br>
+
+<div *ngFor="let r of favouriteRecipes; let i = index">
+    <img [src]="r.image" alt="">
+    <h2>{{r.recipe_name}}</h2>
 <table>
-    <tbody *ngFor="let r of favouriteRecipes; let i = index">
-        <tr>
-            <td>Recipe:</td>
-            <td>{{r.recipe_name}}</td>
-        </tr>
-        <tr>
-            <td>Recipe ID:</td>
-            <td>{{r.recipe_id}}</td>
-        </tr>
+    <tbody>
         <tr>
             <td>
-                <img [src]="r.image" alt="">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Recipe:
-            </td>
-            <td>
-                <a href="{{r.url}}" target="_blank">Full Recipe</a>
+                <button (click)="goToSingleFav(r.recipe_id, r.recipe_name, r.calories, r.cuisine, r.image)" style="background-color: blue; color: white;">
+                Full Recipe
+                </button>
             </td>
         </tr>
         <tr>
@@ -39,10 +28,20 @@
             <td>{{r.calories}}</td>
         </tr>
         <tr>
+            <td>Recipe ID:</td>
+            <td>{{r.recipe_id}}</td>
+        </tr>
+        <tr>
+            <td>
+                <a href="{{r.url}}" target="_blank">More info</a>
+            </td>
+        </tr>
+        <tr>
             <!-- can create delete function later -->
-            <button (click)="deleteRecipe(i)">Delete</button>
+            <button (click)="deleteRecipe(i)" style="background-color: red; color: white;">Delete</button>
         </tr>
         <br>
         <br>
     </tbody>
 </table>
+</div>

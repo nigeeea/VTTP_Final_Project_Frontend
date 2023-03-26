@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import {FormGroup, FormBuilder} from '@angular/forms'
 import { RecipeService } from '../recipe.service';
 import { Recipe } from '../models';
-import { retry, Subscription } from 'rxjs';
-
 
 @Component({
   selector: 'app-favourites',
@@ -13,8 +11,8 @@ import { retry, Subscription } from 'rxjs';
 })
 export class FavouritesComponent implements OnInit{
 
-  userLogged!: string | null
-
+  userLogged!: string | null;
+  
   favouriteRecipes:Recipe[]=[];
 
   constructor(private router: Router, private recipeSvc: RecipeService, private fb: FormBuilder){ }
@@ -70,31 +68,17 @@ export class FavouritesComponent implements OnInit{
     .then(
       results=>{
         console.info("in component", results)
-        this.favouriteRecipes.splice(i, 1);
-      }
+        if(results.recipe_deleted){
+          this.favouriteRecipes.splice(i, 1);
+        }
+        }
     )
   }
-      // gettingFavourites(){
-      //   let email: string;
 
-      //   if(this.userLogged === null) 
-      //   {email = "noemail"}
-      //   else{email = this.userLogged}
-
-      //   this.recipeSvc.getFavourites(email)
-      // .then(results =>
-      //   {console.info("returned>>",results);
-      //     this.favouriteRecipes=results;
-      //     console.info("Recipe Array>>", this.favouriteRecipes)
-      //   return results;}
-      // )
-      // .catch(error=>
-      //   {console.info("error", error)
-      //   return error;}
-      //   )
-
-        
-      // }
+  goToSingleFav(recipe_id: number, recipe_name: string, calories: number, cuisine: string, image: string){
+    this.recipeSvc.GoToSingleFav(recipe_id, recipe_name,calories,cuisine,image)
+    
+  }
 
       logOut(){
         this.recipeSvc.logOut()

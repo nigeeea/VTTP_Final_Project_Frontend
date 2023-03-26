@@ -1,0 +1,30 @@
+<button (click)="goBack()">Go Back</button>
+<br>
+<br>
+<h1>{{favRecipeName}}</h1>
+<img [src]="favRecipeImage" alt="">
+<h2>Calories: {{favRecipeCalories}}</h2>
+<h2>Cuisine: {{favRecipeCuisine}}</h2>
+<h2>Recipe ID: {{favRecipeId}}</h2>
+
+<table>
+    <thead>
+        Ingredients:
+    </thead>
+    <tr>
+        <td>{{recipeInstructions.ingredients}}</td>
+    </tr>
+</table>
+
+<br>
+<table>
+    <tbody *ngFor="let s of recipeInstructions.steps">
+        <tr>
+            <td>
+                <ul>
+                    <li>{{s}}</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>

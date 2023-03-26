@@ -13,6 +13,8 @@ export interface Recipe{
     url: string;
     calories: number;
     cuisine: string;
+    steps: string[];
+    ingredients: string[];
 }
 
 export interface SaveRecipeResult{
@@ -33,4 +35,9 @@ export interface UserProfileUpdateResult{
 
 export interface DeleteRecipeResult{
     recipe_deleted: boolean;
+}
+
+export interface RecipeInstructions{
+    steps: string[];
+    ingredients: string[];
 }

@@ -4,6 +4,7 @@ import { FavouritesComponent } from './component/favourites.component';
 import { LoginComponent } from './component/login.component';
 import { RegisterComponent } from './component/register.component';
 import { SearchrecipeComponent } from './component/searchrecipe.component';
+import { SinglefavComponent } from './component/singlefav.component';
 import { StoreComponent } from './component/store.component';
 import { UserhomeComponent } from './component/userhome.component';
 import { UserprofileComponent } from './component/userprofile.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path:'savedrecipes', component: FavouritesComponent},
   {path:'profile', component: UserprofileComponent},
   {path:'store', component: StoreComponent},
+  {path:'fav/:recipe_id', component: SinglefavComponent},
   { path: '**', redirectTo: '/', pathMatch: 'full'}
 ];
 
