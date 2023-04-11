@@ -4,6 +4,7 @@ import{ firstValueFrom} from 'rxjs'
 import { AuthenticationResult, DeleteRecipeResult, Recipe, RecipeInstructions, RegisterUserResult, SaveRecipeResult, UserProfile, UserProfileUpdateResult } from './models';
 import { Router } from '@angular/router';
 
+//const BACKEND = 'https://...'<--railway url
 const BACKEND = 'http://localhost:8085';
 
 @Injectable()
