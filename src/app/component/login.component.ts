@@ -41,9 +41,14 @@ export class LoginComponent implements OnInit{
     this.recipeSvc.autheticateUser(email, password)
     .then(results =>{
       console.info(results);
+      console.info(results.authenticated);
+      console.info(results.token);
       //this.authResult=results;
 
       if(results.authenticated){
+        localStorage.setItem('email', email)
+        localStorage.setItem('token', results.token)
+        console.info('incomponent>>>>', email+' '+results.token)
         this.router.navigate(['/home'])
       }
       else{

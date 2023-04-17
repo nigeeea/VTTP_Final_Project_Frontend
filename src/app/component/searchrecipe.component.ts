@@ -13,11 +13,11 @@ export class SearchrecipeComponent implements OnInit {
 
   recipeReceived!: Recipe
   userLogged!:string | null
+  tokenLogged!: string | null
   searchForm!:FormGroup
   saveRecipeForm!:FormGroup
   savedStatus!: string
   cuisineInput!:string
-  
 
   constructor(private router: Router, private recipeSvc: RecipeService, private fb: FormBuilder){}
 
@@ -28,6 +28,8 @@ export class SearchrecipeComponent implements OnInit {
     if(this.userLogged === null){
       this.router.navigate(['/'])}
     //if not logged in deny access//
+    console.info('token stored-->', localStorage.getItem('token'));
+
 
     this.searchForm = this.createForm()
   }
@@ -56,7 +58,10 @@ export class SearchrecipeComponent implements OnInit {
     console.info('in component-->recipe',results);
   })
     .catch(error => {
-      console.info("some error bruh>>>", error)
+      console.info("some searchRecipe error bruh>>>", error)
+      //log the user out
+      this.recipeSvc.logOut();
+      return error;
     }
 
     )

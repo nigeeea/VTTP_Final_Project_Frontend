@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { RecipeService } from '../recipe.service';
 
 @Component({
@@ -22,13 +21,6 @@ export class UserhomeComponent implements OnInit{
       if(this.emailLogged === null){
         this.router.navigate(['/'])}
       //if not logged in deny access//
-
-      // this.userLogged=this.recipeSvc.theUser;
-      // localStorage.setItem('user', this.userLogged)
-
-      // const storedUser = localStorage.getItem('user');
-      // console.log('the stored user',storedUser);
-      // this.userLogged = localStorage.getItem('user');
     }
 
     logOut(){

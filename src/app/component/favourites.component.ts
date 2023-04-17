@@ -12,7 +12,7 @@ import { Recipe } from '../models';
 export class FavouritesComponent implements OnInit{
 
   userLogged!: string | null;
-  
+  tokenLogged!: string | null;
   favouriteRecipes:Recipe[]=[];
 
   constructor(private router: Router, private recipeSvc: RecipeService, private fb: FormBuilder){ }
@@ -24,27 +24,38 @@ export class FavouritesComponent implements OnInit{
     this.userLogged = localStorage.getItem('email');
     if(this.userLogged === null){
       this.router.navigate(['/'])}
+
+      console.info('token stored-->', localStorage.getItem('token'));
+      this.tokenLogged = localStorage.getItem('token');
     //if not logged in deny access//
 
-      //get all the favourite recipes and store in a Recipe[]
+    //get all the favourite recipes and store in a Recipe[]
       
-      let email: string;
+    let email: string;
 
-        if(this.userLogged === null) 
-        {email = "noemail"}
-        else{email = this.userLogged}
+      if(this.userLogged === null) 
+      {email = "noemail"}
+      else{email = this.userLogged}
+      
+    let token: string;
 
-      this.recipeSvc.getFavourites(email)
-      .then(results =>
-        {console.info("returned>>",results);
-          this.favouriteRecipes=results;
-          console.info("Recipe Array>>", this.favouriteRecipes)
+      if(this.tokenLogged === null)
+      {token = ""}
+      else{token = this.tokenLogged}
+
+    this.recipeSvc.getFavourites(email, token)
+    .then(results =>
+      {console.info("returned>>",results);
+        this.favouriteRecipes=results;
+        console.info("Recipe Array>>", this.favouriteRecipes)
         return results;}
       )
-      .catch(error=>
-        {console.info("error", error)
+    .catch(error=>
+      {console.info("error bro", error)
+        //log the user out
+        this.recipeSvc.logOut();
         return error;}
-        )
+      )
       
       
   }
@@ -80,8 +91,8 @@ export class FavouritesComponent implements OnInit{
     
   }
 
-      logOut(){
-        this.recipeSvc.logOut()
-        this.router.navigate(['/'])
-    }
+  logOut(){
+      this.recipeSvc.logOut()
+      this.router.navigate(['/'])
+  }
 }

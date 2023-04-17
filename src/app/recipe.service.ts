@@ -1,5 +1,5 @@
 import { Injectable} from '@angular/core'
-import {HttpClient, HttpParams} from '@angular/common/http'
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http'
 import{ firstValueFrom} from 'rxjs'
 import { AuthenticationResult, DeleteRecipeResult, Recipe, RecipeInstructions, RegisterUserResult, SaveRecipeResult, UserProfile, UserProfileUpdateResult } from './models';
 import { Router } from '@angular/router';
@@ -9,13 +9,12 @@ const BACKEND = 'http://localhost:8085';
 
 @Injectable()
 export class RecipeService{
-
+    
     theUser!:string;
     favourites!: Recipe[]
 
-    //authResult = new Subject<AuthenticationResult>()
-
     constructor(private http: HttpClient, private router: Router){}
+
 
     //METHOD TO AUTHENTICATE USER/LOGIN -- MYSQL
     autheticateUser(email: string, password: string) :Promise<AuthenticationResult>{
@@ -23,9 +22,8 @@ export class RecipeService{
         const params = new HttpParams().set("email", email).set("password", password)
         //storing username in local storage                                
         this.theUser=email;
-        localStorage.setItem('email', email)
+        //localStorage.setItem('email', email)
         
-
         return firstValueFrom(
             this.http.post<AuthenticationResult>(`${BACKEND}/api/userAuth`, params )
         )
@@ -35,6 +33,7 @@ export class RecipeService{
             return results;}
             )
     }
+
 
     //METHOD TO REGISTER USER -- MONGO OUTDATED
     registerUser(username: string, password: string): Promise<RegisterUserResult>{
@@ -49,6 +48,7 @@ export class RecipeService{
             return results;
         })
     }
+
 
     //METHOD TO REGISTER USER -- MYSQL
     registerUsersql(email: string, 
@@ -74,13 +74,18 @@ export class RecipeService{
         })
     }
 
+    
     //METHOD TO SEARCH RECIPE
     searchRecipe(cuisine: string, calories: string): Promise<Recipe>{
 
         const params = new HttpParams().set("cuisine", cuisine).set("calories", calories);
 
+        let token: any = localStorage.getItem('token');
+        
+        const headers = new HttpHeaders().set("Authorization", "Bearer "+token);
+        
         return firstValueFrom(
-            this.http.get<Recipe>(`${BACKEND}/api/newapitesting`, {params} )
+            this.http.get<Recipe>(`${BACKEND}/api/searchRecipe`, { headers: headers, params: params } )
         )
         .then(results => {
             console.info("in service--recipe???>>>", results);
@@ -89,8 +94,8 @@ export class RecipeService{
         )
     }
 
-        //METHOD TO SAVE SEARCHED RECIPE IMPROVED
-        saveRecipeTwo(email: string,
+    //METHOD TO SAVE SEARCHED RECIPE IMPROVED
+    saveRecipeTwo(email: string,
             recipe_id: string,
             recipe_name: string,
             image: string,
@@ -107,9 +112,14 @@ export class RecipeService{
                                     .set("calories",calories)
                                     .set("cuisine", cuisine);
     const body = recipeInstructions
+
+    let token: any = localStorage.getItem('token');
+        
+    const headers = new HttpHeaders().set("Authorization", "Bearer "+token);
         
    return firstValueFrom(
-        this.http.post<SaveRecipeResult>(`${BACKEND}/api/saveRecipeTwo`, body, {params})
+        this.http.post<SaveRecipeResult>(`${BACKEND}/api/saveRecipeTwo`, body, { headers: headers, params: params })
+        // this.http.post<SaveRecipeResult>(`${BACKEND}/api/saveRecipeTwo`, body, {params})
     )
     .then(results=>{
         console.info("in service--recipe Saved??>>", results);
@@ -119,13 +129,15 @@ export class RecipeService{
 }
 
 
-
-    getFavourites(email: string): Promise<Recipe[]>{
+    //METHOD TO GET FAVOURITES
+    getFavourites(email: string, token: string): Promise<Recipe[]>{
 
         const params = new HttpParams().set("email", email);
 
+        const headers = new HttpHeaders().set("Authorization", "Bearer "+token);
+
         return firstValueFrom(
-            this.http.get<Recipe[]>(`${BACKEND}/api/getFavourites`, {params} )
+            this.http.get<Recipe[]>(`${BACKEND}/api/getFavourites`, { headers: headers, params: params } )
         )
         .then(results=>{
             this.favourites=results;
@@ -134,12 +146,18 @@ export class RecipeService{
         })
     }
 
+    //METHOD TO GET USER PROFILE DETAILS
     getUserProfile(email: string): Promise<UserProfile>{
 
         const params = new HttpParams().set("email", email);
 
+        let token: any = localStorage.getItem('token');
+        
+        const headers = new HttpHeaders().set("Authorization", "Bearer "+token);
+
         return firstValueFrom(
-            this.http.get<UserProfile>(`${BACKEND}/api/getUserProfile`, {params} )
+            //this.http.get<UserProfile>(`${BACKEND}/api/getUserProfile`, {params} )
+            this.http.get<UserProfile>(`${BACKEND}/api/getUserProfile`, { headers: headers, params: params } )
         )
         .then(results=>{
             console.info(results);
@@ -147,7 +165,7 @@ export class RecipeService{
         })
     }
 
-    //need to include old email as well
+    //METHOD TO UPDATE USER PROFILE DETAILS
     updateUserProfile(email: string,
                         full_name: string,
                         contact_number: number,
@@ -162,8 +180,17 @@ export class RecipeService{
                                         .set("address", address)
                                         .set("postal_code", postal_code)
                                         .set("oldEmail", oldEmail);
+
+        let token: any = localStorage.getItem('token');
+        
+        const headers = new HttpHeaders().set("Authorization", "Bearer "+token);
+        
+
+        // https://stackoverflow.com/questions/60145885/angular-httpheaders-post-menthod-cant-set-parameters
+        //second param for body, third param for options in put/post
         return firstValueFrom(
-            this.http.put<UserProfileUpdateResult>(`${BACKEND}/api/editUserProfile`, params )
+            this.http.put<UserProfileUpdateResult>(`${BACKEND}/api/editUserProfile`,{} ,{ headers: headers, params: params } )
+            //this.http.put<UserProfileUpdateResult>(`${BACKEND}/api/editUserProfile`, params )
         )
         .then(results=>{
             console.info(results);
@@ -174,11 +201,18 @@ export class RecipeService{
         
     }
 
+
+    //METHOD TO DELETE RECIPE FOR USER
     deleteRecipe(email: string, recipe_id: number): Promise<DeleteRecipeResult>{
         const params = new HttpParams().set("email", email).set("recipe_id", recipe_id);
 
+        let token: any = localStorage.getItem('token');
+        
+        const headers = new HttpHeaders().set("Authorization", "Bearer "+token);
+
         return firstValueFrom(
-            this.http.delete<DeleteRecipeResult>(`${BACKEND}/api/deleteRecipe`, {params} )
+            this.http.delete<DeleteRecipeResult>(`${BACKEND}/api/deleteRecipe`, { headers: headers, params: params } )
+            //this.http.delete<DeleteRecipeResult>(`${BACKEND}/api/deleteRecipe`, {params} )
         )
         .then(results=>{
             console.info(results);
@@ -202,6 +236,7 @@ export class RecipeService{
     //LOGOUT METHOD - SHOULD BE IN EVERY COMPONENT TS AND BUTTON IN COMPONENT HTML NAVBAR
     logOut(){
         localStorage.removeItem('email')
+        localStorage.removeItem('token')
         this.router.navigate(['/'])
     }
 
@@ -225,5 +260,8 @@ export class RecipeService{
 
         this.router.navigate(['/fav',recipe_id])
     }
+
+    //create method to add jwt token as header to the requests - maybe can just add in each method should be fine
+    //https://stackoverflow.com/questions/65742101/how-to-get-jwt-token-from-response-header
 
 }

@@ -20,6 +20,7 @@ export class SinglefavComponent implements OnInit {
   favRecipeImage!: string | null
   favTest$!: Subscription
   recipeInstructions!: RecipeInstructions
+  
   constructor(private router: Router,private activatedRoute:ActivatedRoute, private recipeSvc: RecipeService, private fb: FormBuilder){}
 
   ngOnInit(): void {

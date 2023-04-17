@@ -58,6 +58,7 @@ export class RegisterComponent {
 
       if(results.registered){
         localStorage.setItem("email", email)
+        localStorage.setItem('token', results.token)
         this.router.navigate(['/home'])
       }
     })

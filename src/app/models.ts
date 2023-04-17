@@ -1,9 +1,11 @@
 export interface AuthenticationResult{
     authenticated: boolean;
+    token: string;
 }
 
 export interface RegisterUserResult{
     registered: boolean;
+    token: string;
 }
 
 export interface Recipe{

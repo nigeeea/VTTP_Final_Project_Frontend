@@ -1,7 +1,27 @@
+<!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+crossorigin=""></script> -->
+
+
+
+
+
 <button [routerLink]="['/home']">home</button>
 <button [routerLink]="['/findarecipe']">search recipe</button>
 <button [routerLink]="['/savedrecipes']">favourites</button>
 <button [routerLink]="['/profile']">profile</button>
 <button [routerLink]="['/store']">store</button>
 <button type="button" (click)="logOut()">Logout</button>
-<p>store works!</p>
+
+<div class="map-container">
+    <div class="map-frame">
+      <div id="map"></div>
+    </div>
+    <p>Address: NUS-ISS</p>
+    <p>Postal Code: 123456</p>
+    <p>Contact No.: 98765432</p>
+    <p>Email: foodfinderapp0@gmail.com</p>
+  </div>

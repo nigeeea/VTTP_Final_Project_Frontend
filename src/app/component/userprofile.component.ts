@@ -29,6 +29,8 @@ export class UserprofileComponent implements OnInit{
     if(this.userLogged === null){
       this.router.navigate(['/'])}
     //if not logged in deny access//
+    console.info('token stored profile-->', localStorage.getItem('token'));
+
 
     //get all the user profile and store in userProfile
       

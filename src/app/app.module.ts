@@ -18,6 +18,7 @@ import { FavouritesComponent } from './component/favourites.component';
 import { UserprofileComponent } from './component/userprofile.component';
 import { StoreComponent } from './component/store.component';
 import { SinglefavComponent } from './component/singlefav.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { SinglefavComponent } from './component/singlefav.component';
     FormsModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    LeafletModule
   ],
   providers: [RecipeService],
   bootstrap: [AppComponent]
