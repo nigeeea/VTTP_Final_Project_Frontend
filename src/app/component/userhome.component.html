@@ -1,13 +1,35 @@
-<button [routerLink]="['/home']">home</button>
-<button [routerLink]="['/findarecipe']">search recipe</button>
-<button [routerLink]="['/savedrecipes']">favourites</button>
-<button [routerLink]="['/profile']">profile</button>
-<button [routerLink]="['/store']">store</button>
-<button type="button" (click)="logOut()">Logout</button>
-<p>userhome works!</p>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+     <img src="assets/images/icon2.jpg" alt="" class="icon">
+      <span>Food Finder</span>
+      <span class="spacer"></span>
+      <a mat-button [routerLink]="['/home']"><mat-icon>home</mat-icon>Home</a>
+      <span class="spacer"></span>
+      
+      <a mat-button [routerLink]="['/findarecipe']"><mat-icon>search</mat-icon>Search</a>
+      <span class="spacer"></span>
+      
+      <a mat-button [routerLink]="['/savedrecipes']"> <mat-icon>favorite</mat-icon>Favourites</a>
+      <span class="spacer"></span>
+      <a mat-button [routerLink]="['/profile']"><mat-icon>group</mat-icon>Profile</a>
+      <span class="spacer"></span>
+      <a mat-button [routerLink]="['/store']"><mat-icon>phone</mat-icon>Contact</a>
+      <span class="flexExpand"></span>
+      <button mat-raised-button color="accent" type="button" (click)="logOut()">Logout</button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<button mat-flat-button>Basic</button>
+<button mat-button color="primary">Primary</button>
 <p>wooo you managed to login i guess</p>
 
+<button mat-button>Basic</button>
+
+<h2>Food Finder Telegram Bot is live!</h2>
+<h2>Join now at t.me/FoodFinderAppBot</h2>
+<img src="assets/images/teleSample.jpg" alt="">
 
 <h1>{{emailLogged}}</h1>
 

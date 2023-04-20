@@ -12,6 +12,7 @@ import { RecipeService } from './recipe.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { SearchrecipeComponent } from './component/searchrecipe.component';
 import { RegisterComponent } from './component/register.component';
 import { FavouritesComponent } from './component/favourites.component';
@@ -42,6 +43,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     BrowserAnimationsModule,
     MatButtonModule,
     MatIconModule,
+    MatToolbarModule,
     LeafletModule
   ],
   providers: [RecipeService],

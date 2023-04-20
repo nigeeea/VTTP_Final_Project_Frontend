@@ -1,9 +1,25 @@
-<button [routerLink]="['/home']">home</button>
-<button [routerLink]="['/findarecipe']">search recipe</button>
-<button [routerLink]="['/savedrecipes']">favourites</button>
-<button [routerLink]="['/profile']">profile</button>
-<button [routerLink]="['/store']">store</button>
-<button type="button" (click)="logOut()">Logout</button>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+     <img src="assets/images/icon2.jpg" alt="" class="icon">
+      <span>Food Finder</span>
+      <span class="spacer"></span>
+      <a mat-button [routerLink]="['/home']"><mat-icon>home</mat-icon>Home</a>
+      <span class="spacer"></span>
+      
+      <a mat-button [routerLink]="['/findarecipe']"><mat-icon>search</mat-icon>Search</a>
+      <span class="spacer"></span>
+      
+      <a mat-button [routerLink]="['/savedrecipes']"> <mat-icon>favorite</mat-icon>Favourites</a>
+      <span class="spacer"></span>
+      <a mat-button [routerLink]="['/profile']"><mat-icon>group</mat-icon>Profile</a>
+      <span class="spacer"></span>
+      <a mat-button [routerLink]="['/store']"><mat-icon>phone</mat-icon>Contact</a>
+      <span class="flexExpand"></span>
+      <button mat-raised-button color="accent" type="button" (click)="logOut()">Logout</button>
+    </mat-toolbar-row>
+</mat-toolbar>
 <p>userprofile works!</p>
 
 <h1>Profile Details</h1>

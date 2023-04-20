@@ -11,7 +11,7 @@ import { Recipe, RecipeInstructions } from '../models';
 })
 export class SearchrecipeComponent implements OnInit {
 
-  recipeReceived!: Recipe
+  recipeReceived!: Recipe 
   userLogged!:string | null
   tokenLogged!: string | null
   searchForm!:FormGroup
