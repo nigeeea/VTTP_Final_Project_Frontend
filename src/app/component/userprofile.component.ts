@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { UserProfile } from '../models';
 import { RecipeService } from '../recipe.service';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms'
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-userprofile',

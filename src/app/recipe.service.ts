@@ -4,7 +4,7 @@ import{ firstValueFrom} from 'rxjs'
 import { AuthenticationResult, DeleteRecipeResult, Recipe, RecipeInstructions, RegisterUserResult, SaveRecipeResult, UserProfile, UserProfileUpdateResult } from './models';
 import { Router } from '@angular/router';
 
-const BACKEND = 'https://foodfinderproject-production.up.railway.app'
+const BACKEND = 'https://foodfinderbynigel.up.railway.app'
 // const BACKEND = 'http://localhost:8085';
 
 @Injectable()

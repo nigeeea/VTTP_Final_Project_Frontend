@@ -20,44 +20,67 @@
       <button mat-raised-button color="accent" type="button" (click)="logOut()">Logout</button>
     </mat-toolbar-row>
 </mat-toolbar>
+<div style="background-color: rgb(191, 212, 231);"> 
 
 <br><br>
 
-<div *ngFor="let r of favouriteRecipes; let i = index">
-    <img [src]="r.image" alt="">
-    <h2>{{r.recipe_name}}</h2>
-<table>
-    <tbody>
-        <tr>
-            <td>
-                <button (click)="goToSingleFav(r.recipe_id, r.recipe_name, r.calories, r.cuisine, r.image)" style="background-color: blue; color: white;">
-                Full Recipe
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <td>Cusine:</td>
-            <td>{{r.cuisine}}</td>
-        </tr>
-        <tr>
-            <td>Calories:</td>
-            <td>{{r.calories}}</td>
-        </tr>
-        <tr>
-            <td>Recipe ID:</td>
-            <td>{{r.recipe_id}}</td>
-        </tr>
-        <tr>
-            <td>
-                <a href="{{r.url}}" target="_blank">More info</a>
-            </td>
-        </tr>
-        <tr>
-            <!-- can create delete function later -->
-            <button (click)="deleteRecipe(i)" style="background-color: red; color: white;">Delete</button>
-        </tr>
-        <br>
-        <br>
-    </tbody>
-</table>
+<div *ngFor="let r of favouriteRecipes; let i = index" class="container">
+    <img [src]="r.image" alt="" style="border-radius: 10%;">
+    <div style="width: 50%; padding: 0 20px;">
+        <h2 style=" font-family: monospace;">{{r.recipe_name}}</h2>
+            <table>
+                <tbody>
+                    <!-- <tr>
+                        <td>
+                            <button (click)="goToSingleFav(r.recipe_id, r.recipe_name, r.calories, r.cuisine, r.image)" style="background-color: blue; color: white;">
+                            Full Recipe
+                            </button>
+                        </td>
+                    </tr> -->
+                    <tr>
+                        <td>Cuisine:</td>
+                        <td>{{r.cuisine}}</td>
+                    </tr>
+                    <tr>
+                        <td>Calories:</td>
+                        <td>{{r.calories}}</td>
+                    </tr>
+                    <tr>
+                        <td>Recipe ID:</td>
+                        <td>{{r.recipe_id}}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="{{r.url}}" target="_blank">More info</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!-- can create delete function later -->
+                        <td>
+                            <button class="recipe-button" style="font-family: monospace;" (click)="goToSingleFav(r.recipe_id, r.recipe_name, r.calories, r.cuisine, r.image)" >
+                            Full Recipe
+                            </button>
+                        </td>
+                        <td>
+                            <button class="delete-button" style="font-family: monospace;" (click)="deleteRecipe(i)">Delete</button>
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                        <td>
+                            <button (click)="deleteRecipe(i)" style="background-color: red; color: white;">Delete</button>
+                        </td>
+                        <td>
+                            <button (click)="goToSingleFav(r.recipe_id, r.recipe_name, r.calories, r.cuisine, r.image)" style="background-color: blue; color: white;">
+                            Full Recipe
+                            </button>
+                        </td>
+                        <td>
+                            <a href="{{r.url}}" target="_blank">More info</a>
+                        </td>
+                    </tr> -->
+                    <br>
+                    <br>
+                </tbody>
+            </table>
+    </div>
 </div>

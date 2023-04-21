@@ -24,9 +24,9 @@ export class RegisterComponent {
 
   createForm(){
     return this.fb.group({
-      email: this.fb.control('', [Validators.required, Validators.minLength(5)]),
-      password: this.fb.control('', [Validators.required, Validators.minLength(5)]),
-      passwordAgain: this.fb.control('',  [Validators.required, Validators.minLength(5), this.passwordMatchingValidator('password')]),
+      email: this.fb.control('', [Validators.required, Validators.minLength(6)]),
+      password: this.fb.control('', [Validators.required, Validators.minLength(6)]),
+      passwordAgain: this.fb.control('',  [Validators.required, Validators.minLength(6), this.passwordMatchingValidator('password')]),
       full_name: this.fb.control(''),
       contact_number: this.fb.control(''),
       address: this.fb.control(''),
